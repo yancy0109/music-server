@@ -8,7 +8,7 @@
         <setting name="logImpl" value="STDOUT_LOGGING"/>
     </settings>
     <typeAliases>
-        <package name="com.manager.pojo"/>
+        <package name="com.server.pojo"/>
     </typeAliases>
 <!--    分页插件-->
     <plugins>
