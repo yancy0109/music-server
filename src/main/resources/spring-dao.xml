@@ -20,6 +20,6 @@
 <!--    配置dao层mapper扫描自动注入-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="sqlSessionFactoryBeanName" value="sessionFactory"/>
-        <property name="basePackage" value="com.manager.dao"/>
+        <property name="basePackage" value="com.server.dao"/>
     </bean>
 </beans>
