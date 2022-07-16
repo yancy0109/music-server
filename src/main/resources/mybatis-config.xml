@@ -16,6 +16,6 @@
         </plugin>
     </plugins>
     <mappers>
-        <package name="com.manager.dao"/>
+        <package name="com.server.dao"/>
     </mappers>
 </configuration>
