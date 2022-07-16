@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.server.dao.SingerMapper">
+    <insert id="addSinger" parameterType="Singer">
+        insert into singer(id, name, sex, pic, birth, location, introduction) VALUES (#{id},#{name},#{sex},#{pic},#{birth},#{location},#{introduction})
+    </insert>
+    <update id="updateSinger" parameterType="singer">
+        update singer set name=#{name},sex=#{sex},pic=#{pic},birth=#{birth},location=#{location},introduction=#{introduction} where id=#{id}
+    </update>
+    <delete id="deleteSingerById">
+        delete from singer where id=#{id}
+    </delete>
+    <select id="allSinger" resultType="Singer">
+        select * from singer
+    </select>
+</mapper>
