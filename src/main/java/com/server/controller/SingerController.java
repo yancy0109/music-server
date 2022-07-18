@@ -16,7 +16,7 @@ import java.util.List;
 public class SingerController {
 
     @Autowired
-    SingerServiceImpl singerService;
+    SingerService singerService;
 
 
     //返回所有歌手
