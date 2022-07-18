@@ -21,7 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-@Controller
+@RestController
 public class SongListController {
 
     @Resource(name="songListServiceImpl")
@@ -29,7 +29,6 @@ public class SongListController {
 
 
     // 添加歌单 manager
-    @ResponseBody
     @RequestMapping(value = "/songList/add", method = RequestMethod.POST)
     public Object addSongList(HttpServletRequest req) {
         String title = req.getParameter("title").trim();
@@ -87,7 +86,6 @@ public class SongListController {
     }
 
     // 更新歌单信息 manager
-    @ResponseBody
     @RequestMapping(value = "/songList/update", method = RequestMethod.POST)
     public Object updateSongListMsg(HttpServletRequest req) {
         String id = req.getParameter("id").trim();
@@ -110,7 +108,6 @@ public class SongListController {
     }
 
     // 更新歌单图片 manager
-    @ResponseBody
     @RequestMapping(value = "/songList/img/update", method = RequestMethod.POST)
     public Object updateSongListPic(@RequestParam("file") MultipartFile avatorFile, @RequestParam("id") int id) {
         String fileName = System.currentTimeMillis() + avatorFile.getOriginalFilename();
