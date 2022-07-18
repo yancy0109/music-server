@@ -3,11 +3,11 @@ package com.server.service.Impl;
 import com.server.dao.CollectMapper;
 import com.server.pojo.Collect;
 import com.server.service.CollectService;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-@Component("collectServiceImpl")
+@Service("collectServiceImpl")
 public class CollectServiceImpl implements CollectService {
     private CollectMapper collectMapper;
     @Resource(name="collectMapper")
@@ -30,7 +30,7 @@ public class CollectServiceImpl implements CollectService {
         System.out.println("============");
         int res=collectMapper.isCollection(collect);
 
-         return res>0?true:false;
+         return res>0;
     }
 
     @Override

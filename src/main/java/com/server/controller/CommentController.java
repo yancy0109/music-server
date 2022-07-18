@@ -64,6 +64,8 @@ public class CommentController {
         Map<String,Object> map=new HashMap<>();
         map.put("songId",id);
         List<Comment> commentList =commentService.getAllComment(map);
+        System.out.println("查询结果为：");
+        System.out.println(commentList);
         return new SuccessMessage<>(null,commentList).getMessage();
 
     }

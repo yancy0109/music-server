@@ -4,11 +4,37 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.server.dao.SongMapper">
 <!--    查询所有歌曲-->
-    <select id="getAllSong" resultType="song">
-        select * from song;
-    </select>
+  <select id="getSongByIf" parameterType="map" resultType="com.server.pojo.Song">
+      select * from song
+     <where>
+         <if test="id!=null">
+            and id=#{id}
+         </if>
+         <if test="singerId!=null">
+            and singer_id=#{singerId}
+         </if>
+        <if test="name!=null and name!=''">
+            and name like concat('%',#{name},'%')
+        </if>
+     </where>
+  </select>
 
-    <select id="getSongBySingerId" resultType="song">
-        select * from song where singer_id = #{id}
-    </select>
+    <update id="updateSong" parameterType="com.server.pojo.Song">
+        update song
+       <set>
+          <if test="pic!=null and pic!=''">
+              pic=#{pic},
+          </if>
+             <if test="url!=null and url!=''">
+                url=#{url},
+             </if>
+            <if test="introduction!=null and introduction!=''">
+                introduction=#{introduction},
+            </if>
+       </set>
+            where id=#{id}
+    </update>
+    <delete id="deleteSong" parameterType="integer">
+        delete from song where id=#{id}
+    </delete>
 </mapper>

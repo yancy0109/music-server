@@ -3,13 +3,13 @@ package com.server.service.Impl;
 import com.server.dao.CommentMapper;
 import com.server.pojo.Comment;
 import com.server.service.CommentService;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
-@Component("commentServiceImpl")
+@Service("commentServiceImpl")
 public class CommentServiceImpl implements CommentService {
     private CommentMapper commentMapper;
     @Resource(name="commentMapper")
@@ -34,6 +34,10 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> getAllComment(Map<String, Object> map) {
-        return commentMapper.getAllComment(map);
+
+       List<Comment> commentList=commentMapper.getAllComment(map);
+       System.out.println("在Service中的查询结果：");
+       System.out.println(commentList);
+       return null;
     }
 }
