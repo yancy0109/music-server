@@ -5,11 +5,10 @@ import com.server.common.SuccessMessage;
 import com.server.pojo.Comment;
 import com.server.service.CommentService;
 import org.apache.commons.lang3.ObjectUtils;
-
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 public class CommentController {
     @Resource(name="commentServiceImpl")
     private CommentService commentService;

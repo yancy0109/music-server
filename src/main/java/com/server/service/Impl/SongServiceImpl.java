@@ -13,7 +13,7 @@ import java.util.Map;
 @Service
 public class SongServiceImpl implements SongService {
     @Resource(name="songMapper")
-   private  SongMapper songMapper;
+    private  SongMapper songMapper;
 
 
     @Override

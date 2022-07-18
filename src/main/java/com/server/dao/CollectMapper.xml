@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.server.dao.CollectMapper">
     <select id="collectionOfUser" resultType="com.server.pojo.Collect" parameterType="java.lang.Integer">
-       select *  from  where user_id=#{userId})
+       select *  from collect where user_id =#{userId}
     </select>
 
     <delete id="deleteCollect" parameterType="java.lang.Integer">

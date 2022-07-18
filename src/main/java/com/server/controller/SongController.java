@@ -59,8 +59,10 @@ public class SongController {
         String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "img" + System.getProperty("file.separator") + "songPic";
         File file1 = new File(filePath);
         if (!file1.exists()) {
-           file1.mkdir();
-
+            boolean mkdir = file1.mkdir();
+            if (mkdir){
+                System.out.println("创建失败");
+            }
         }
 
         File dest = new File(filePath + System.getProperty("file.separator") + fileName);
@@ -115,9 +117,10 @@ public class SongController {
         String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "song";
         File file1 = new File(filePath);
         if (!file1.exists()) {
-            file1.mkdir();
-
-
+            boolean mkdir = file1.mkdir();
+            if (mkdir){
+                System.out.println("创建失败");
+            }
         }
 
         File dest = new File(filePath + System.getProperty("file.separator") + fileName);
