@@ -17,5 +17,7 @@ public interface SingerService {
 
     boolean deleteSingerById(int id);
 
+    boolean updateSingerPic(Singer singer);
+
 
 }

@@ -37,4 +37,9 @@ public class SingerServiceImpl implements SingerService {
     public boolean deleteSingerById(int id) {
         return singerMapper.deleteSingerById(id)>0;
     }
+
+    @Override
+    public boolean updateSingerPic(Singer singer) {
+        return singerMapper.updateSingerPic(singer) >0;
+    }
 }

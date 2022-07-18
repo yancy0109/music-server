@@ -21,4 +21,5 @@ public interface SingerMapper {
 
     int deleteSingerById(@Param("id")int id);
 
+    int updateSingerPic(Singer singer);
 }

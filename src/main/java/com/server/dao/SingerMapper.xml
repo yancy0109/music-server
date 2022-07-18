@@ -7,6 +7,9 @@
     <update id="updateSinger" parameterType="singer">
         update singer set name=#{name},sex=#{sex},pic=#{pic},birth=#{birth},location=#{location},introduction=#{introduction} where id=#{id}
     </update>
+    <update id="updateSingerPic">
+        update singer set pic = #{pic} where id = #{id}
+    </update>
     <delete id="deleteSingerById">
         delete from singer where id=#{id}
     </delete>
