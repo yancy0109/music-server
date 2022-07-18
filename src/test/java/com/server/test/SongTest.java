@@ -7,7 +7,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SongTest {
     SongService songService;
@@ -18,7 +20,7 @@ public class SongTest {
 
     @Test
     public void getAllSong(){
-        List<Song> allSong = songService.getAllSong();
+        List<Song> allSong = songService.getSongByIf(null);
         for (Song song : allSong) {
             System.out.println(song);
         }
@@ -26,7 +28,9 @@ public class SongTest {
 
     @Test
     public void getSongBySingerId(){
-        List<Song> songBySingerId = songService.getSongBySingerId(1);
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", 1);
+        List<Song> songBySingerId = songService.getSongByIf(map);
         for (Song song : songBySingerId) {
             System.out.println(song);
         }
