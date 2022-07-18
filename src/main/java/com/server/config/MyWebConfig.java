@@ -1,14 +1,18 @@
 package com.server.config;
 
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
 
 
 @Configuration
-@EnableWebMvc
-public class MyWebConfig implements WebMvcConfigurer {
+public class MyWebConfig extends WebMvcConfigurationSupport {
 
     private String serverLocation;
 
@@ -17,7 +21,7 @@ public class MyWebConfig implements WebMvcConfigurer {
     }
 
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/img/avatorImages/**")
                 .addResourceLocations("file:"+serverLocation+"\\img\\avatorImages\\");
         registry.addResourceHandler("/song/**")
@@ -30,6 +34,6 @@ public class MyWebConfig implements WebMvcConfigurer {
                 .addResourceLocations("file:"+serverLocation+"\\img\\avatorImages\\");
         registry.addResourceHandler("/img/singerPic/**")
                 .addResourceLocations("file:"+serverLocation+"\\img\\singerPic\\");
-        WebMvcConfigurer.super.addResourceHandlers(registry);
+        super.addResourceHandlers(registry);
     }
 }

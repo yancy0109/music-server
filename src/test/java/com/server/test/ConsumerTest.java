@@ -17,7 +17,7 @@ public class ConsumerTest {
 
     @Before
     public void before(){
-        consumerService = new ClassPathXmlApplicationContext("applicationContext.xml").getBean(ConsumerService.class);
+        consumerService = new ClassPathXmlApplicationContext("spring-test.xml").getBean(ConsumerService.class);
     }
 
     @Test
