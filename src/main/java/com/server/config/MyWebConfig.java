@@ -36,4 +36,6 @@ public class MyWebConfig extends WebMvcConfigurationSupport {
                 .addResourceLocations("file:"+serverLocation+"\\img\\singerPic\\");
         super.addResourceHandlers(registry);
     }
+
+
 }
