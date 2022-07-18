@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+
 @Component("commentServiceImpl")
 public class CommentServiceImpl implements CommentService {
     private CommentMapper commentMapper;
@@ -23,5 +25,15 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public int deleteComment(Integer id) {
         return commentMapper.deleteComment(id);
+    }
+
+    @Override
+    public int addComment(Comment comment) {
+        return  commentMapper.addComment(comment);
+    }
+
+    @Override
+    public List<Comment> getAllComment(Map<String, Object> map) {
+        return commentMapper.getAllComment(map);
     }
 }

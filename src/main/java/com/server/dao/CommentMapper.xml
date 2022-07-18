@@ -11,5 +11,19 @@
     <delete id="deleteComment" parameterType="integer">
         delete  from comment where id=#{id,jdbcType=INTEGER}
     </delete>
-
+    <insert id="addComment" parameterType="com.server.pojo.Comment">
+        insert into comment(user_id,song_id,song_list_id,content,create_time,type,up)
+         values(#{userId},#{songId},#{songListId},#{content},#{createTime},#{type},#{up})
+    </insert>
+    <select id="getAllComment" parameterType="map" resultType="com.server.pojo.Comment">
+        select * from comment
+       <where>
+           <if test="songId!=null">
+               and song_id=#{songId}
+           </if>
+           <if test="songListId!=null">
+              and song_list_id=#{$songListId}
+           </if>
+       </where>
+    </select>
 </mapper>

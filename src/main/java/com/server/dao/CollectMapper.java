@@ -2,7 +2,6 @@ package com.server.dao;
 
 
 import com.server.pojo.Collect;
-import com.server.pojo.Song;
 import org.apache.ibatis.annotations.Param;
 
 
@@ -13,5 +12,7 @@ public interface CollectMapper {
     List<Collect> collectionOfUser(@Param("userId") Integer userId);
     //根据收藏的用户id和歌曲id删除收藏表中对应的信息
     int deleteCollect(@Param("userId") Integer userId, @Param("songId") Integer songId);
+    int isCollection(Collect collect);
+    int setCollection(Collect collect);
 
 }

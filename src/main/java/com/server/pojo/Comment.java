@@ -5,6 +5,20 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import java.util.Date;
 
 public class Comment {
+    public Comment() {
+    }
+
+    public Comment(Integer id, Integer userId, Integer songId, Integer songListId, String content, Date createTime, Byte type, Integer up) {
+        this.id = id;
+        this.userId = userId;
+        this.songId = songId;
+        this.songListId = songListId;
+        this.content = content;
+        this.createTime = createTime;
+        this.type = type;
+        this.up = up;
+    }
+
     private Integer id;
 
     private Integer userId;

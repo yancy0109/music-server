@@ -2,7 +2,6 @@ package com.server.service.Impl;
 
 import com.server.dao.CollectMapper;
 import com.server.pojo.Collect;
-import com.server.pojo.Song;
 import com.server.service.CollectService;
 import org.springframework.stereotype.Component;
 
@@ -25,4 +24,18 @@ public class CollectServiceImpl implements CollectService {
     public int deleteCollect(Integer userId, Integer songId) {
         return collectMapper.deleteCollect(userId,songId);
     }
+
+    @Override
+    public Boolean isCollection(Collect collect) {
+        System.out.println("============");
+        int res=collectMapper.isCollection(collect);
+
+         return res>0?true:false;
+    }
+
+    @Override
+    public int setCollection(Collect collect) {
+        return collectMapper.setCollection(collect);
+    }
+
 }
