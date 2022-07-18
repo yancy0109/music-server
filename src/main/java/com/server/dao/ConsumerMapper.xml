@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.server.dao.ConsumerMapper">
+    <select id="getAllUser" resultType="consumer">
+        select * from consumer;
+    </select>
+    <select id="getUserById" resultType="consumer">
+        select * from consumer where id = #{id};
+    </select>
+
+    <insert id="addUser" parameterType="consumer">
+        insert into consumer (username, password, sex, phone_num, email, birth, introduction, location, avator,
+                              create_time, update_time)
+        values (#{username}, #{password}, #{sex},
+                #{phoneNum}, #{email}, #{birth},
+                #{introduction}, #{location}, #{avator},
+                #{createTime}, #{updateTime});
+    </insert>
+
+<!--    根据username查询数量-->
+    <select id="getCountByUserName" parameterType="String" resultType="int">
+        select count(*) from consumer where username = #{username};
+    </select>
+<!--    根据phooneNumber查询数量-->
+    <select id="getCountByPhoneNumber" parameterType="String" resultType="int">
+        select count(*) from consumer where phone_num = #{phoneNum};
+    </select>
+<!--    更新用户信息-->
+    <update id="updateUser" parameterType="consumer">
+        update consumer
+        set username = #{username}, password = #{password},sex = #{sex} , phone_num = #{phoneNum},
+            email = #{email}, birth = #{birth}, introduction = #{introduction} , location = #{location},
+            avator = #{avator}, update_time = now()
+        where id = #{id};
+    </update>
+<!--    根据用户id删除-->
+    <delete id="deleteUserById">
+        delete from consumer where id = #{id};
+    </delete>
+</mapper>
