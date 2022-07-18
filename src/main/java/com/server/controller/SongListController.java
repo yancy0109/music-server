@@ -3,7 +3,6 @@ package com.server.controller;
 import com.server.common.ErrorMessage;
 import com.server.common.FatalMessage;
 import com.server.common.SuccessMessage;
-import com.server.constant.Constants;
 import com.server.pojo.SongList;
 import com.server.service.Impl.SongListServiceImpl;
 import com.server.service.SongListService;
@@ -28,14 +27,6 @@ public class SongListController {
     @Resource(name="songListServiceImpl")
     private SongListService songListService;
 
-    @Configuration
-    public static class MyPicConfig implements WebMvcConfigurer {
-        @Override
-        public void addResourceHandlers(ResourceHandlerRegistry registry) {
-            registry.addResourceHandler("/img/songListPic/**")
-                    .addResourceLocations(Constants.SONGLIST_PIC_PATH);
-        }
-    }
 
     // 添加歌单 manager
     @ResponseBody
