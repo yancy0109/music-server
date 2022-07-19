@@ -108,16 +108,16 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.server.pojo.SongList">
     update song_list
     set title = #{title,jdbcType=VARCHAR},
-      pic = #{pic,jdbcType=VARCHAR},
-    style = #{style,jdbcType=VARCHAR},
-      introduction = #{introduction,jdbcType=LONGVARCHAR}
+        pic = #{pic,jdbcType=VARCHAR},
+        style = #{style,jdbcType=VARCHAR},
+        introduction = #{introduction,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.server.pojo.SongList">
     update song_list
     set title = #{title,jdbcType=VARCHAR},
-      pic = #{pic,jdbcType=VARCHAR},
-    style = #{style,jdbcType=VARCHAR}
+        pic = #{pic,jdbcType=VARCHAR},
+        style = #{style,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

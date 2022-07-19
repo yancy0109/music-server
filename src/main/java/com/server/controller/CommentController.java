@@ -23,10 +23,10 @@ public class CommentController {
     private CommentService commentService;
     //查找歌曲对应的评论
     @RequestMapping(value = "/comment/song/detail",method = RequestMethod.GET)
-   public Object getCommentOfSongId( HttpServletRequest request){
-          Integer songId=Integer.parseInt(request.getParameter("songId"));
-          List<Comment> commentList= commentService.commentOfSongId(songId);
-          return new SuccessMessage<>(null,commentList).getMessage();
+    public Object getCommentOfSongId( HttpServletRequest request){
+        Integer songId=Integer.parseInt(request.getParameter("songId"));
+        List<Comment> commentList= commentService.commentOfSongId(songId);
+        return new SuccessMessage<>(null,commentList).getMessage();
     }
     //根据id删除评论
     @RequestMapping(value = "/comment/delete",method = RequestMethod.GET)
@@ -37,31 +37,33 @@ public class CommentController {
         else return  new ErrorMessage("删除失败！").getMessage();
 
     }
-     @RequestMapping(value = "/comment/add",method = RequestMethod.POST)
-     public Object setComment(Comment comment){
-         comment.setCreateTime(new Date());
+    @RequestMapping(value = "/comment/add",method = RequestMethod.POST)
+    public Object setComment(Comment comment){
+        comment.setCreateTime(new Date());
 
-         comment.setCreateTime(new Date());
-         int res = commentService.addComment(comment);
-         if (res>0) {
-             return new SuccessMessage<ObjectUtils.Null>("评论成功",null).getMessage();
-         } else {
-             return new ErrorMessage("评论失败").getMessage();
-         }
+        comment.setCreateTime(new Date());
+        int res = commentService.addComment(comment);
+        if (res>0) {
+            return new SuccessMessage<ObjectUtils.Null>("评论成功",null).getMessage();
+        } else {
+            return new ErrorMessage("评论失败").getMessage();
+        }
 
-     }
-     @RequestMapping(value = "/comment/songList/detail")
-     public Object commentOfSongList(@RequestParam Integer id){
+    }
+    @RequestMapping(value = "/comment/songList/detail")
+    public Object commentOfSongList(@RequestParam Integer songListId){
         Map<String,Object> map=new HashMap<>();
-        map.put("songListId",id);
+        System.out.println(songListId);
+        map.put("songListId",songListId);
         List<Comment> commentList =commentService.getAllComment(map);
+        System.out.println(commentList);
         return new SuccessMessage<>(null,commentList).getMessage();
 
-     }
+    }
     @RequestMapping(value = "/comment/song/detail")
-    public Object commentOfSong(@RequestParam Integer id){
+    public Object commentOfSong(@RequestParam Integer songListId){
         Map<String,Object> map=new HashMap<>();
-        map.put("songId",id);
+        map.put("songId",songListId);
         List<Comment> commentList =commentService.getAllComment(map);
         System.out.println("查询结果为：");
         System.out.println(commentList);

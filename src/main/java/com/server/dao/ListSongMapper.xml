@@ -68,7 +68,7 @@
   <update id="updateByPrimaryKey" parameterType="com.server.pojo.ListSong">
     update list_song
     set song_id = #{songId, jdbcType=INTEGER},
-      song_list_id = #{songListId, jdbcType=INTEGER}
+        song_list_id = #{songListId, jdbcType=INTEGER}
     where id = #{id, jdbcType=INTEGER}
   </update>
 </mapper>
