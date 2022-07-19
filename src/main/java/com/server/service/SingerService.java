@@ -1,6 +1,7 @@
 package com.server.service;
 
 import com.server.pojo.Singer;
+import com.server.pojo.Song;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public interface SingerService {
     boolean updateSinger(Singer singer);
 
     boolean deleteSingerById(int id);
+
 
 
 }
