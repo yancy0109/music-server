@@ -17,14 +17,13 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@Controller
+@RestController
 public class ListSongController {
 
     @Resource(name="listSongServiceImpl")
     private ListSongService listSongService;
 
     // 给歌单添加歌曲 manager
-    @ResponseBody
     @RequestMapping(value = "/listSong/add", method = RequestMethod.POST)
     public Object addListSong(HttpServletRequest req) {
         String song_id = req.getParameter("songId").trim();
@@ -65,7 +64,6 @@ public class ListSongController {
     }
 
     // 更新歌单里面的歌曲信息
-    @ResponseBody
     @RequestMapping(value = "/listSong/update", method = RequestMethod.POST)
     public Object updateListSongMsg(HttpServletRequest req) {
         String id = req.getParameter("id").trim();
