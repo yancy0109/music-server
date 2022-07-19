@@ -13,8 +13,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -31,7 +35,28 @@ public class SingerController {
     }
     //添加歌手
     @RequestMapping(value = "/singer/add",method = RequestMethod.POST)
-    public Object addSinger(Singer singer){
+    public Object addSinger(HttpServletRequest req){
+        String name = req.getParameter("name").trim();
+        String sex = req.getParameter("sex").trim();
+        String birth = req.getParameter("birth").trim();
+        String location = req.getParameter("location").trim();
+        String introduction = req.getParameter("introduction").trim();
+        String pic = "/img/avatorImages/user.jpg";
+
+        Singer singer = new Singer();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date myBirth = new Date();
+        try {
+            myBirth = dateFormat.parse(birth);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        singer.setName(name);
+        singer.setSex(new Byte(sex));
+        singer.setBirth(myBirth);
+        singer.setLocation(location);
+        singer.setIntroduction(introduction);
+        singer.setPic(pic);
         boolean flag = singerService.addSinger(singer);
         if (flag){
             return new SuccessMessage<ObjectUtils.Null>("添加成功").getMessage();
@@ -43,7 +68,28 @@ public class SingerController {
 
     //更新歌手信息
     @RequestMapping(value = "/singer/update",method = RequestMethod.POST)
-    public Object updateSinger(Singer singer){
+    public Object updateSinger(HttpServletRequest req){
+        String id = req.getParameter("id").trim();
+        String name = req.getParameter("name").trim();
+        String sex = req.getParameter("sex").trim();
+        String birth = req.getParameter("birth").trim();
+        String location = req.getParameter("location").trim();
+        String introduction = req.getParameter("introduction").trim();
+
+        Singer singer = new Singer();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date myBirth = new Date();
+        try {
+            myBirth = dateFormat.parse(birth);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        singer.setId(Integer.parseInt(id));
+        singer.setName(name);
+        singer.setSex(new Byte(sex));
+        singer.setBirth(myBirth);
+        singer.setLocation(location);
+        singer.setIntroduction(introduction);
         boolean flag = singerService.updateSinger(singer);
         if (flag){
             return new SuccessMessage("更新成功").getMessage();
@@ -52,7 +98,7 @@ public class SingerController {
         }
     }
     //删除鸽手信息
-    @RequestMapping(value = "/singer/delete",method = RequestMethod.POST)
+    @RequestMapping(value = "/singer/delete",method = RequestMethod.GET)
     public Object deleteSinger(@RequestParam("id") int id){
         boolean flag = singerService.deleteSingerById(id);
         if (flag){
