@@ -30,4 +30,9 @@ public class SongServiceImpl implements SongService {
     public int deleteSong(Integer id) {
         return songMapper.deleteSong(id);
     }
+
+    @Override
+    public int addSong(Song song) {
+        return  songMapper.addSong(song);
+    }
 }

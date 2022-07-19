@@ -37,4 +37,9 @@
     <delete id="deleteSong" parameterType="integer">
         delete from song where id=#{id}
     </delete>
+
+    <insert id="addSong" parameterType="com.server.pojo.Song">
+       insert into song (singer_id,name,introduction,create_time,update_time,pic,lyric,url)
+       values (#{singerId},#{name},#{introduction},#{createTime},#{updateTime},#{pic},#{lyric},#{url})
+    </insert>
 </mapper>

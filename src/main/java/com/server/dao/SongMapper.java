@@ -12,5 +12,6 @@ public interface SongMapper {
     List<Song> getSongByIf(Map<String,Object> map);
     int updateSong(Song song);
     int deleteSong(@Param("id") Integer id);
+    int addSong(Song song);
 
 }
