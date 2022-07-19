@@ -1,8 +1,6 @@
 package com.server.service;
 
 import com.server.pojo.Comment;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
 import java.util.Map;
 
