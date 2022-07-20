@@ -1,9 +1,12 @@
 package com.server.interceptor;
 
 import com.server.common.ErrorMessage;
+import com.server.untils.JwtUntil;
+import com.server.untils.RedisUntil;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
@@ -15,17 +18,45 @@ import java.io.PrintWriter;
  * 同时对含有token的用户的token进行刷新
  */
 public class LoginInterceptor implements HandlerInterceptor {
+
+    @Resource(name = "redisUntil")
+    RedisUntil redisUntil;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if (request.getMethod() .equals( "OPTIONS")) return  true;
-        String token = request.getHeader("token");
-        if (token == null){
+        //根据username
+        String username = (String) request.getSession().getAttribute("username");
+//        System.out.println(username);
+        if (username == null){
+//            System.out.println("未登录请求");
+            return false;
+        }
+        //判断redis是否包含username
+        String sessionId = (String) redisUntil.getObjecet(username);
+        String token = (String) redisUntil.getObjecet(sessionId);
+        //异地登录校验
+        //username与sessionId绑定是在登录Cotroller进行
+        if (!sessionId.equals(request.getSession().getId())){
+//            System.out.println(username+"异地登录成功");
             PrintWriter writer = response.getWriter();
-            writer.write(new ErrorMessage("lack token").getMessage().toString());
+            writer.write(new ErrorMessage("this user was login in other place").getMessage().toString());
             writer.flush();
             writer.close();
             return false;
         }
+        String tokenResult = JwtUntil.parseToken(token);
+        //token过期校验
+        if (tokenResult==null){
+            PrintWriter writer = response.getWriter();
+            writer.write(new ErrorMessage(username+"token out").getMessage().toString());
+            writer.flush();
+            writer.close();
+            return false;
+        }
+//        System.out.println(username+"正常访问");
+        String newToken = JwtUntil.generateToken(username);
+        //刷新token时间
+        redisUntil.setObject(sessionId,newToken);
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }
 

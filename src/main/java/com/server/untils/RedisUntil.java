@@ -39,8 +39,8 @@ public class RedisUntil {
         return redisTemplate.opsForValue().get(key);
     }
     //获取Token
-    public String getToken(String key){
-        return redisTemplate.opsForValue().get(key).toString();
+    public Object getToken(String key){
+        return redisTemplate.opsForValue().get(key);
     }
 
     /**
