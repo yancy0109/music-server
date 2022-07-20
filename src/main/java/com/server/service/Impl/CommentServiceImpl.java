@@ -35,9 +35,6 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<Comment> getAllComment(Map<String, Object> map) {
 
-       List<Comment> commentList=commentMapper.getAllComment(map);
-       System.out.println("在Service中的查询结果：");
-       System.out.println(commentList);
-       return null;
+        return commentMapper.getAllComment(map);
     }
 }

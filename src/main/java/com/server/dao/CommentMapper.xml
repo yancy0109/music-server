@@ -22,7 +22,7 @@
                and song_id=#{songId}
            </if>
            <if test="songListId!=null">
-              and song_list_id=#{$songListId}
+              and song_list_id=#{songListId}
            </if>
        </where>
     </select>

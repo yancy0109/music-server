@@ -28,6 +28,16 @@ public class CommentController {
         List<Comment> commentList= commentService.commentOfSongId(songId);
         return new SuccessMessage<>(null,commentList).getMessage();
     }
+
+    @RequestMapping(value = "/comment/songList/detail")
+    public Object commentOfSongList(@RequestParam Integer songListId){
+        Map<String,Object> map=new HashMap<>();
+        System.out.println(songListId);
+        map.put("songListId",songListId);
+        List<Comment> commentList =commentService.getAllComment(map);
+        return new SuccessMessage<>(null,commentList).getMessage();
+
+    }
     //根据id删除评论
     @RequestMapping(value = "/comment/delete",method = RequestMethod.GET)
     public Object deleteComment (HttpServletRequest request){
@@ -50,26 +60,8 @@ public class CommentController {
         }
 
     }
-    @RequestMapping(value = "/comment/songList/detail")
-    public Object commentOfSongList(@RequestParam Integer songListId){
-        Map<String,Object> map=new HashMap<>();
-        System.out.println(songListId);
-        map.put("songListId",songListId);
-        List<Comment> commentList =commentService.getAllComment(map);
-        System.out.println(commentList);
-        return new SuccessMessage<>(null,commentList).getMessage();
 
-    }
-    @RequestMapping(value = "/comment/song/detail")
-    public Object commentOfSong(@RequestParam Integer songListId){
-        Map<String,Object> map=new HashMap<>();
-        map.put("songId",songListId);
-        List<Comment> commentList =commentService.getAllComment(map);
-        System.out.println("查询结果为：");
-        System.out.println(commentList);
-        return new SuccessMessage<>(null,commentList).getMessage();
 
-    }
 
 
 }
