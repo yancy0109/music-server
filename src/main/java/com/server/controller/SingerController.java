@@ -4,6 +4,7 @@ package com.server.controller;
 import com.server.common.ErrorMessage;
 import com.server.common.FatalMessage;
 import com.server.common.SuccessMessage;
+import com.server.constant.Constants;
 import com.server.pojo.Singer;
 import com.server.service.Impl.SingerServiceImpl;
 import com.server.service.SingerService;
@@ -113,8 +114,9 @@ public class SingerController {
     @RequestMapping(value = "/singer/avatar/update",method = RequestMethod.POST)
     public Object updateSingerPic(@RequestParam("file")MultipartFile avatorFile,@RequestParam("id") int id){
         String fileName = System.currentTimeMillis() + avatorFile.getOriginalFilename();
-        String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "img"
-                + System.getProperty("file.separator") + "singerPic";
+//        String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "img"
+//                + System.getProperty("file.separator") + "singerPic";
+        String filePath= Constants.FILE_LACATION+"\\img\\singerPic";
         File file1 = new File(filePath);
         if (!file1.exists()) {
             file1.mkdir();
