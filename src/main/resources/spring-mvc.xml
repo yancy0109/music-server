@@ -19,16 +19,16 @@
     <context:component-scan base-package="com.server.controller"/>
     <!--    不处理静态资源-->
 <!--    <mvc:default-servlet-handler/>-->
-<!--    <mvc:interceptors>-->
-<!--        <mvc:interceptor>-->
-<!--            <mvc:mapping path="/**"/>-->
-<!--            <mvc:exclude-mapping path="/img/**.jpg"/>-->
-<!--            <mvc:exclude-mapping path="/admin/**"/>-->
-<!--            <mvc:exclude-mapping path="/admin"/>-->
-<!--            <mvc:exclude-mapping path="/song/*.mp3"/>-->
-<!--            <bean class="com.server.interceptor.LoginInterceptor"/>-->
-<!--        </mvc:interceptor>-->
-<!--    </mvc:interceptors>-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/img/**.jpg"/>
+            <mvc:exclude-mapping path="/admin/**"/>
+            <mvc:exclude-mapping path="/admin"/>
+            <mvc:exclude-mapping path="/song/*.mp3"/>
+            <bean class="com.server.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
     <mvc:annotation-driven>
         <mvc:message-converters>
             <!--Spring提供-->
