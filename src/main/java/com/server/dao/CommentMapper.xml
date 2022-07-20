@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.server.dao.CommentMapper">
+    <select id="commentOfSongId" resultType="com.server.pojo.Comment" parameterType="integer">
+        select *
+        from comment
+        where song_id = #{songId, jdbcType=INTEGER}
+    </select>
+    <delete id="deleteComment" parameterType="integer">
+        delete  from comment where id=#{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="addComment" parameterType="com.server.pojo.Comment">
+        insert into comment(user_id,song_id,song_list_id,content,create_time,type,up)
+         values(#{userId},#{songId},#{songListId},#{content},#{createTime},#{type},#{up})
+    </insert>
+    <select id="getAllComment" parameterType="map" resultType="com.server.pojo.Comment">
+        select * from comment
+       <where>
+           <if test="songId!=null">
+               and song_id=#{songId}
+           </if>
+           <if test="songListId!=null">
+              and song_list_id=#{$songListId}
+           </if>
+       </where>
+    </select>
+</mapper>
