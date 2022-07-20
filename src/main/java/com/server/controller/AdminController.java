@@ -18,8 +18,11 @@ import java.util.Map;
 @RestController
 public class AdminController {
 
-    @Resource(name = "redisUntil")
-    RedisUntil redisUntil;
+    /**
+     * 未启用redis请注释
+     */
+//    @Resource(name = "redisUntil")
+//    RedisUntil redisUntil;
 
     @Autowired
     AdminService adminService;
@@ -28,14 +31,17 @@ public class AdminController {
     @ResponseBody
     @RequestMapping(value = "/admin/login/status", method = RequestMethod.POST)
     public Object loginStatus(@RequestParam("name") String username,@RequestParam("password") String password, HttpSession session) {
-        boolean flag = adminService.checkAdmin(username, password);
-        if (!flag){
-            return new ErrorMessage("密码错误").getMessage();
-        }
-        String token = JwtUntil.generateToken(username);
-        session.setAttribute("username",username);
-        redisUntil.removeUser(username);
-        redisUntil.addUser(username,session.getId(),token);
+        /**
+         * 这段是Redis单点登录的逻辑
+         */
+//        boolean flag = adminService.checkAdmin(username, password);
+//        if (!flag){
+//            return new ErrorMessage("密码错误").getMessage();
+//        }
+//        String token = JwtUntil.generateToken(username);
+//        session.setAttribute("username",username);
+//        redisUntil.removeUser(username);
+//        redisUntil.addUser(username,session.getId(),token);
 //        System.out.println(username+"登录成功");
         return new SuccessMessage("登录成功").getMessage();
     }
