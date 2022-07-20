@@ -29,6 +29,10 @@ public class LoginInterceptor implements HandlerInterceptor {
 //        System.out.println(username);
         if (username == null){
 //            System.out.println("未登录请求");
+            PrintWriter writer = response.getWriter();
+            writer.write(new ErrorMessage("no login").getMessage().toString());
+            writer.flush();
+            writer.close();
             return false;
         }
         //判断redis是否包含username
