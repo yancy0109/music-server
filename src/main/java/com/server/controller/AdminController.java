@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Map;
+
 
 @RestController
 public class AdminController {
@@ -34,15 +33,16 @@ public class AdminController {
         /**
          * 这段是Redis单点登录的逻辑
          */
-//        boolean flag = adminService.checkAdmin(username, password);
-//        if (!flag){
-//            return new ErrorMessage("密码错误").getMessage();
-//        }
+        boolean flag = adminService.checkAdmin(username, password);
+        if (!flag){
+            return new ErrorMessage("密码错误").getMessage();
+        }
 //        String token = JwtUntil.generateToken(username);
 //        session.setAttribute("username",username);
+//
 //        redisUntil.removeUser(username);
 //        redisUntil.addUser(username,session.getId(),token);
-//        System.out.println(username+"登录成功");
+        System.out.println(username+"登录成功");
         return new SuccessMessage("登录成功").getMessage();
     }
 }

@@ -18,7 +18,7 @@ public class CollectController {
     @Resource(name ="collectServiceImpl")
     private CollectService collectService;
     //根据用户id和歌曲id删除用户对应的收藏
-    @RequestMapping(value = "/collection/delete",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/collection/delete",method = RequestMethod.GET)
     public Object deleteCollection (HttpServletRequest request){
         Integer userId=Integer.parseInt(request.getParameter("userId")) ;
         Integer songId=Integer.parseInt(request.getParameter("songId"));

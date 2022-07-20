@@ -5,7 +5,7 @@
         insert into singer(id, name, sex, pic, birth, location, introduction) VALUES (#{id},#{name},#{sex},#{pic},#{birth},#{location},#{introduction})
     </insert>
     <update id="updateSinger" parameterType="singer">
-        update singer set name=#{name},sex=#{sex},pic=#{pic},birth=#{birth},location=#{location},introduction=#{introduction} where id=#{id}
+        update singer set name=#{name},sex=#{sex},birth=#{birth},location=#{location},introduction=#{introduction} where id=#{id}
     </update>
     <update id="updateSingerPic">
         update singer set pic = #{pic} where id = #{id}

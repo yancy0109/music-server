@@ -18,7 +18,7 @@
     <!--    自动扫描controller-->
     <context:component-scan base-package="com.server.controller"/>
     <!--    不处理静态资源-->
-<!--    <mvc:default-servlet-handler/>-->
+    <mvc:default-servlet-handler/>
 <!--    拦截器配置   -->
 <!--    <mvc:interceptors>-->
 <!--        <mvc:interceptor>-->
