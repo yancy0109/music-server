@@ -4,6 +4,7 @@ package com.server.controller;
 import com.server.common.ErrorMessage;
 import com.server.common.FatalMessage;
 import com.server.common.SuccessMessage;
+import com.server.constant.Constants;
 import com.server.pojo.Song;
 import com.server.service.SongService;
 import org.apache.commons.lang3.ObjectUtils;
@@ -17,13 +18,13 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 public class SongController {
 
     @Resource(name = "songServiceImpl")
     SongService songService;
-
     @RequestMapping("/song")
     public Object getAllSong() {
 
@@ -54,21 +55,16 @@ public class SongController {
     //更新歌曲图片
     @ResponseBody
     @RequestMapping(value = "/song/img/update", method = RequestMethod.POST)
-    public Object updateSongPic(@RequestParam("file") MultipartFile urlFile, @RequestParam("id") int id) {
-        String fileName = System.currentTimeMillis() + urlFile.getOriginalFilename();
-        String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "img" + System.getProperty("file.separator") + "songPic";
-        File file1 = new File(filePath);
-        if (!file1.exists()) {
-            boolean mkdir = file1.mkdir();
-            if (mkdir){
-                System.out.println("创建失败");
-            }
-        }
-
-        File dest = new File(filePath + System.getProperty("file.separator") + fileName);
-        String storeUrlPath = "/img/songPic/" + fileName;
+    public Object updateSongPic(@RequestParam("file") MultipartFile urlFile, @RequestParam("id") int id ) {
+        String uuid= UUID.randomUUID().toString().replace("-","");
+        String houzhui=null;
+        if(urlFile.getOriginalFilename()!=null)
+        houzhui=urlFile.getOriginalFilename().substring(urlFile.getOriginalFilename().lastIndexOf("."));
+        String fileName=uuid+houzhui;
+        String filePath= Constants.FILE_LACATION+"\\img\\songPic";
         try {
-            urlFile.transferTo(dest);
+            urlFile.transferTo(new File(filePath+"\\"+fileName));
+            String storeUrlPath = "/img/songPic/" + fileName;
             Song song = new Song();
             song.setId(id);
             song.setPic(storeUrlPath);
@@ -81,6 +77,8 @@ public class SongController {
         } catch (IOException e) {
             return new FatalMessage("上传失败" + e.getMessage()).getMessage();
         }
+
+
     }
 
     // 更新歌曲信息
@@ -113,32 +111,28 @@ public class SongController {
     @ResponseBody
     @RequestMapping(value = "/song/url/update", method = RequestMethod.POST)
     public Object updateSongUrl(@RequestParam("file") MultipartFile urlFile, @RequestParam("id") int id) {
-        String fileName = urlFile.getOriginalFilename();
-        String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "song";
-        File file1 = new File(filePath);
-        if (!file1.exists()) {
-            boolean mkdir = file1.mkdir();
-            if (mkdir){
-                System.out.println("创建失败");
-            }
-        }
 
-        File dest = new File(filePath + System.getProperty("file.separator") + fileName);
-        String storeUrlPath = "/song/" + fileName;
+        String fileName=System.currentTimeMillis()+urlFile.getOriginalFilename();
+        System.out.println(fileName);
+        String filePath=Constants.SONG_PATH;
+        System.out.println(filePath);
         try {
-            urlFile.transferTo(dest);
+            urlFile.transferTo(new File(filePath+"\\"+fileName));
+            String storeUrlPath = "/song/" + fileName;
             Song song = new Song();
             song.setId(id);
             song.setUrl(storeUrlPath);
             int res = songService.updateSong(song);
             if (res > 0) {
-                return new SuccessMessage<>("更新成功", storeUrlPath).getMessage();
+                return new SuccessMessage<>("上传成功", storeUrlPath).getMessage();
             } else {
-                return new ErrorMessage("更新失败").getMessage();
+                return new ErrorMessage("上传失败").getMessage();
             }
         } catch (IOException e) {
-            return new FatalMessage("更新失败" + e.getMessage()).getMessage();
+            return new FatalMessage("上传失败" + e.getMessage()).getMessage();
         }
+
+
     }
     @RequestMapping("/song/delete")
     public  Object deleteSong(@RequestParam Integer id){
@@ -146,5 +140,48 @@ public class SongController {
        if (res>0) return  new SuccessMessage<>("删除成功！",null).getMessage();
        else return new ErrorMessage("删除失败！").getMessage();
     }
+
+    // 添加歌曲
+    @ResponseBody
+    @RequestMapping(value = "/song/add", method = RequestMethod.POST)
+    public Object addSong(HttpServletRequest req, @RequestParam("file") MultipartFile mpfile) {
+        String singer_id = req.getParameter("singerId").trim();
+        String name = req.getParameter("name").trim();
+        String introduction = req.getParameter("introduction").trim();
+        String pic = "/img/songPic/tubiao.jpg";
+        String lyric = req.getParameter("lyric").trim();
+
+        String fileName = System.currentTimeMillis()+mpfile.getOriginalFilename();
+        String filePath = Constants.SONG_PATH;
+        File file1 = new File(filePath);
+        if (!file1.exists()) {
+            Boolean result=file1.mkdir();
+            if(!result) System.out.println("创建文件失败！");
+        }
+
+        File dest = new File(filePath +"\\" + fileName);
+        String storeUrlPath = "/song/" + fileName;
+        try {
+            mpfile.transferTo(dest);
+            Song song = new Song();
+            song.setSingerId(Integer.parseInt(singer_id));
+            song.setName(name);
+            song.setIntroduction(introduction);
+            song.setCreateTime(new Date());
+            song.setUpdateTime(new Date());
+            song.setPic(pic);
+            song.setLyric(lyric);
+            song.setUrl(storeUrlPath);
+            int res = songService.addSong(song);
+            if (res>0) {
+                return new SuccessMessage<>("上传成功", storeUrlPath).getMessage();
+            } else {
+                return new ErrorMessage("上传失败").getMessage();
+            }
+        } catch (IOException e) {
+            return new FatalMessage("上传失败" + e.getMessage()).getMessage();
+        }
+    }
+
 
 }

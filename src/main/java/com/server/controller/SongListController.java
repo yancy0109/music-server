@@ -3,13 +3,10 @@ package com.server.controller;
 import com.server.common.ErrorMessage;
 import com.server.common.FatalMessage;
 import com.server.common.SuccessMessage;
+import com.server.constant.Constants;
 import com.server.pojo.SongList;
-import com.server.service.Impl.SongListServiceImpl;
 import com.server.service.SongListService;
 import org.apache.commons.lang3.ObjectUtils.Null;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -20,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class SongListController {
@@ -66,7 +64,7 @@ public class SongListController {
     // 返回所有歌单 manager
     @RequestMapping(value = "/songList", method = RequestMethod.GET)
     public Object allSongList() {
-        return new SuccessMessage<List<SongList>>(null, songListService.allSongList()).getMessage();
+        return new SuccessMessage<>(null, songListService.allSongList()).getMessage();
     }
 
     // 返回标题包含文字的歌单 client
@@ -74,7 +72,7 @@ public class SongListController {
     public Object songListOfLikeTitle(HttpServletRequest req) {
         String title = req.getParameter("title").trim();
 
-        return new SuccessMessage<List<SongList>>(null, songListService.likeTitle('%' + title + '%')).getMessage();
+        return new SuccessMessage<>(null, songListService.likeTitle('%' + title + '%')).getMessage();
     }
 
     // 返回指定类型的歌单 client
@@ -82,7 +80,7 @@ public class SongListController {
     public Object songListOfStyle(HttpServletRequest req) {
         String style = req.getParameter("style").trim();
 
-        return new SuccessMessage<List<SongList>>(null, songListService.likeStyle('%' + style + '%')).getMessage();
+        return new SuccessMessage<>(null, songListService.likeStyle('%' + style + '%')).getMessage();
     }
 
     // 更新歌单信息 manager
@@ -109,25 +107,25 @@ public class SongListController {
 
     // 更新歌单图片 manager
     @RequestMapping(value = "/songList/img/update", method = RequestMethod.POST)
-    public Object updateSongListPic(@RequestParam("file") MultipartFile avatorFile, @RequestParam("id") int id) {
-        String fileName = System.currentTimeMillis() + avatorFile.getOriginalFilename();
-        String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "img" + System.getProperty("file.separator") + "songListPic";
-        File file1 = new File(filePath);
-        if (!file1.exists()) {
-            file1.mkdir();
-        }
-
-        File dest = new File(filePath + System.getProperty("file.separator") + fileName);
-        String imgPath = "/img/songListPic/" + fileName;
+    public Object updateSongListPic(@RequestParam("file") MultipartFile urlFile, @RequestParam("id") int id ) {
+        String uuid= UUID.randomUUID().toString().replace("-","");
+        String houzhui=null;
+        if(urlFile.getOriginalFilename()!=null)
+            houzhui=urlFile.getOriginalFilename().substring(urlFile.getOriginalFilename().lastIndexOf("."));
+        String fileName=uuid+houzhui;
+        System.out.println(urlFile.getOriginalFilename());
+        System.out.println(fileName);
+        String filePath= Constants.FILE_LACATION+"\\img\\songListPic";
+        System.out.println(filePath);
         try {
-            avatorFile.transferTo(dest);
+            urlFile.transferTo(new File(filePath+"\\"+fileName));
+            String storeUrlPath = "/img/songListPic/" + fileName;
             SongList songList = new SongList();
             songList.setId(id);
-            songList.setPic(imgPath);
-
+            songList.setPic(storeUrlPath);
             boolean res = songListService.updateSongListImg(songList);
             if (res) {
-                return new SuccessMessage<String>("上传成功", imgPath).getMessage();
+                return new SuccessMessage<>("上传成功", storeUrlPath).getMessage();
             } else {
                 return new ErrorMessage("上传失败").getMessage();
             }
@@ -135,4 +133,31 @@ public class SongListController {
             return new FatalMessage("上传失败" + e.getMessage()).getMessage();
         }
     }
+//    @RequestMapping(value = "/songList/img/update", method = RequestMethod.POST)
+//    public Object updateSongListPic(@RequestParam("file") MultipartFile avatorFile, @RequestParam("id") int id) {
+//        String fileName = System.currentTimeMillis() + avatorFile.getOriginalFilename();
+//        String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "img" + System.getProperty("file.separator") + "songListPic";
+//        File file1 = new File(filePath);
+//        if (!file1.exists()) {
+//            file1.mkdir();
+//        }
+//
+//        File dest = new File(filePath + System.getProperty("file.separator") + fileName);
+//        String imgPath = "/img/songListPic/" + fileName;
+//        try {
+//            avatorFile.transferTo(dest);
+//            SongList songList = new SongList();
+//            songList.setId(id);
+//            songList.setPic(imgPath);
+//
+//            boolean res = songListService.updateSongListImg(songList);
+//            if (res) {
+//                return new SuccessMessage<String>("上传成功", imgPath).getMessage();
+//            } else {
+//                return new ErrorMessage("上传失败").getMessage();
+//            }
+//        } catch (IOException e) {
+//            return new FatalMessage("上传失败" + e.getMessage()).getMessage();
+//        }
+//    }
 }

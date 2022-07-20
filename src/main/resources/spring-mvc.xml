@@ -5,7 +5,7 @@
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <bean id="webConfig" class="com.server.config.MyWebConfig">
-        <property name="serverLocation" value="C:\Users\11567\Desktop\SHIXUN2\FinalWork\music-server"/>
+        <property name="serverLocation" value="E:\shixunwork\music-server"/>
     </bean>
     <mvc:cors>
         <mvc:mapping path="/**"
@@ -46,7 +46,7 @@
         <!--        请求的编码格式-->
         <property name="defaultEncoding" value="UTF-8"/>
         <!--        上传文件大小上线 单位为字节 10485760为10M -->
-        <property name="maxUploadSize" value="10485760"/>
+        <property name="maxUploadSize" value="52428800"/>
         <property name="maxInMemorySize" value="40960"/>
     </bean>
 
