@@ -61,7 +61,10 @@ public class SongController {
         if(urlFile.getOriginalFilename()!=null)
         houzhui=urlFile.getOriginalFilename().substring(urlFile.getOriginalFilename().lastIndexOf("."));
         String fileName=uuid+houzhui;
+        System.out.println(urlFile.getOriginalFilename());
+        System.out.println(fileName);
         String filePath= Constants.FILE_LACATION+"\\img\\songPic";
+        System.out.println(filePath);
         try {
             urlFile.transferTo(new File(filePath+"\\"+fileName));
             String storeUrlPath = "/img/songPic/" + fileName;

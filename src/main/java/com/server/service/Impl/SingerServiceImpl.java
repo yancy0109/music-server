@@ -15,9 +15,9 @@ import java.util.List;
 @Service
 public class SingerServiceImpl implements SingerService {
 
-
     @Autowired
     private SingerMapper singerMapper;
+
     @Override
     public List<Singer> allSinger() {
         return singerMapper.allSinger();

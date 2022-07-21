@@ -6,13 +6,12 @@ import java.util.List;
 
 public interface ListSongService {
 
+    //给歌单添加歌曲
     boolean addListSong(ListSong listSong);
 
-    boolean updateListSongMsg(ListSong listSong);
-
+    //删除歌单里的歌曲
     boolean deleteListSong(Integer songId);
 
-    List<ListSong> allListSong();
-
+    //返回歌单里指定歌单ID的歌曲
     List<ListSong> listSongOfSongId(Integer songListId);
 }

@@ -9,14 +9,11 @@ import com.server.service.SongListService;
 import org.apache.commons.lang3.ObjectUtils.Null;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -67,22 +64,6 @@ public class SongListController {
         return new SuccessMessage<>(null, songListService.allSongList()).getMessage();
     }
 
-    // 返回标题包含文字的歌单 client
-    @RequestMapping(value = "/songList/likeTitle/detail", method = RequestMethod.GET)
-    public Object songListOfLikeTitle(HttpServletRequest req) {
-        String title = req.getParameter("title").trim();
-
-        return new SuccessMessage<>(null, songListService.likeTitle('%' + title + '%')).getMessage();
-    }
-
-    // 返回指定类型的歌单 client
-    @RequestMapping(value = "/songList/style/detail", method = RequestMethod.GET)
-    public Object songListOfStyle(HttpServletRequest req) {
-        String style = req.getParameter("style").trim();
-
-        return new SuccessMessage<>(null, songListService.likeStyle('%' + style + '%')).getMessage();
-    }
-
     // 更新歌单信息 manager
     @RequestMapping(value = "/songList/update", method = RequestMethod.POST)
     public Object updateSongListMsg(HttpServletRequest req) {
@@ -109,10 +90,10 @@ public class SongListController {
     @RequestMapping(value = "/songList/img/update", method = RequestMethod.POST)
     public Object updateSongListPic(@RequestParam("file") MultipartFile urlFile, @RequestParam("id") int id ) {
         String uuid= UUID.randomUUID().toString().replace("-","");
-        String houzhui=null;
+        String suffix=null;
         if(urlFile.getOriginalFilename()!=null)
-            houzhui=urlFile.getOriginalFilename().substring(urlFile.getOriginalFilename().lastIndexOf("."));
-        String fileName=uuid+houzhui;
+            suffix=urlFile.getOriginalFilename().substring(urlFile.getOriginalFilename().lastIndexOf("."));
+        String fileName=uuid+suffix;
         System.out.println(urlFile.getOriginalFilename());
         System.out.println(fileName);
         String filePath= Constants.FILE_LACATION+"\\img\\songListPic";
@@ -133,31 +114,4 @@ public class SongListController {
             return new FatalMessage("上传失败" + e.getMessage()).getMessage();
         }
     }
-//    @RequestMapping(value = "/songList/img/update", method = RequestMethod.POST)
-//    public Object updateSongListPic(@RequestParam("file") MultipartFile avatorFile, @RequestParam("id") int id) {
-//        String fileName = System.currentTimeMillis() + avatorFile.getOriginalFilename();
-//        String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "img" + System.getProperty("file.separator") + "songListPic";
-//        File file1 = new File(filePath);
-//        if (!file1.exists()) {
-//            file1.mkdir();
-//        }
-//
-//        File dest = new File(filePath + System.getProperty("file.separator") + fileName);
-//        String imgPath = "/img/songListPic/" + fileName;
-//        try {
-//            avatorFile.transferTo(dest);
-//            SongList songList = new SongList();
-//            songList.setId(id);
-//            songList.setPic(imgPath);
-//
-//            boolean res = songListService.updateSongListImg(songList);
-//            if (res) {
-//                return new SuccessMessage<String>("上传成功", imgPath).getMessage();
-//            } else {
-//                return new ErrorMessage("上传失败").getMessage();
-//            }
-//        } catch (IOException e) {
-//            return new FatalMessage("上传失败" + e.getMessage()).getMessage();
-//        }
-//    }
 }

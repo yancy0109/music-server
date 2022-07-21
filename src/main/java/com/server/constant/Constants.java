@@ -1,7 +1,7 @@
 package com.server.constant;
 
 public class Constants {
-    public static String FILE_LACATION = "E:\\shixunwork\\music-server";
+    public static String FILE_LACATION = "D:\\Workspace\\music\\music-server";
     public static String AVATOR_IMAGES_PATH = FILE_LACATION + "\\img\\avatorImages\\";
     public static String SONGLIST_PIC_PATH = FILE_LACATION + "\\img\\songListPic\\";
     public static String SONG_PIC_PATH = FILE_LACATION + "\\img\\songPic\\";

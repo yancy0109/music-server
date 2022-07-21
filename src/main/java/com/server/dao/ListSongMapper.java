@@ -7,23 +7,13 @@ import java.util.List;
 
 @Repository
 public interface ListSongMapper {
-    int deleteByPrimaryKey(Integer id);
 
-    int insert(ListSong record);
-
+    //添加歌单的歌曲
     int insertSelective(ListSong record);
 
-    ListSong selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(ListSong record);
-
-    int updateByPrimaryKey(ListSong record);
-
-    int updateListSongMsg(ListSong record);
-
+    //删除歌单里的歌曲
     int deleteListSong(Integer songId);
 
-    List<ListSong> allListSong();
-
+    //返回歌单里指定歌单ID的歌曲
     List<ListSong> listSongOfSongId(Integer songListId);
 }

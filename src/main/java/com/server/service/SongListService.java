@@ -5,18 +5,18 @@ import com.server.pojo.SongList;
 import java.util.List;
 
 public interface SongListService {
-
-    boolean addSongList (SongList songList);
-
-    boolean updateSongListMsg(SongList songList);
-
-    boolean updateSongListImg(SongList songList);
-
-    boolean deleteSongList(Integer id);
-
+    //获取全部歌单
     List<SongList> allSongList();
 
-    List<SongList> likeTitle(String title);
+    //添加歌单
+    boolean addSongList (SongList songList);
 
-    List<SongList> likeStyle(String style);
+    //更新歌单信息
+    boolean updateSongListMsg(SongList songList);
+
+    //更新歌单图片
+    boolean updateSongListImg(SongList songList);
+
+    //删除歌单
+    boolean deleteSongList(Integer id);
 }
